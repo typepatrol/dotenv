@@ -23,7 +23,10 @@
     "lint": "standard",
     "pretest": "npm run dts-check",
     "test": "tap run tests/**/*.js --allow-empty-coverage --disable-coverage --timeout=60000",
-    "test:coverage": "tap run tests/**/*.js --show-full-coverage --timeout=60000 --coverage-report=text --coverage-report=lcov",
+    "test:coverage": "c8 tap run tests/**/*.js --allow-empty-coverage --disable-coverage --timeout=60000",
+    "test:clean": "rm -rf coverage .nyc_output",
+    "test:coverage:no-clean": "c8 --no-clean tap run tests/**/*.js --allow-empty-coverage --disable-coverage --timeout=60000",
+    "test:report": "c8 report --reporter=text --reporter=lcov",
     "prerelease": "npm test",
     "release": "standard-version"
   },
@@ -46,6 +49,7 @@
   "license": "BSD-2-Clause",
   "devDependencies": {
     "@types/node": "^18.11.3",
+    "c8": "^8.0.1",
     "decache": "^4.6.2",
     "sinon": "^14.0.1",
     "standard": "^17.0.0",
@@ -58,5 +62,11 @@
   },
   "browser": {
     "fs": false
+  },
+  "c8": {
+    "reporter": [
+      "text",
+      "lcov"
+    ]
   }
 }
